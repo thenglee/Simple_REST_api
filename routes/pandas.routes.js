@@ -12,6 +12,10 @@ router.route('/')
 		Panda.find(function(err, pandas){
 			if (err) res.send(err);
 
+			if (!pandas.length){
+				return res.send('No pandas found!');
+			}
+
 			res.json(pandas);
 		});
 	})
@@ -34,7 +38,10 @@ router.route('/:panda_name')
 		Panda.findOne({name: req.params.panda_name}, function(err, panda){
 			if (err) res.send(err);
 
-			
+			if (panda == null){
+				return res.redirect('/');
+			}
+
 			res.render('panda.ejs', {
 				panda: {
 					name: panda.name,
@@ -47,6 +54,10 @@ router.route('/:panda_name')
 		Panda.findOne({name: req.params.panda_name}, function(err, panda){
 			if (err) res.send (err);
 
+			if (panda == null){
+				return res.send('No panda found!');
+			}
+
 			panda.name = req.body.name;
 			panda.save(function(err){
 				if (err) throw err;
@@ -57,6 +68,10 @@ router.route('/:panda_name')
 	.delete(function(req, res){
 		Panda.remove({name: req.params.panda_name}, function(err, panda){
 			if (err) res.send(err);
+
+			if (!panda.length){
+				return res.send('No panda found!');
+			}
 
 			res.send('Panda removed successfully');
 		});
