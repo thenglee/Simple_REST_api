@@ -34,7 +34,13 @@ router.route('/:panda_name')
 		Panda.findOne({name: req.params.panda_name}, function(err, panda){
 			if (err) res.send(err);
 
-			res.json(panda);
+			
+			res.render('panda.ejs', {
+				panda: {
+					name: panda.name,
+					description: panda.description
+				}
+			});
 		});
 	})
 	.put(function(req, res){
