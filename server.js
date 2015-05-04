@@ -48,6 +48,14 @@ app.put('/pandas/:panda_name', function(req, res){
 	});
 });
 
+app.get('/pandas/:panda_name', function(req, res){
+	Panda.findOne({name: req.params.panda_name}, function(err, panda){
+		if (err) res.send(err);
+
+		res.json(panda);
+	});
+});
+
 
 
 app.listen(8000);
