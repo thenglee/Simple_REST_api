@@ -1,7 +1,29 @@
 var express = require('express');
 var app = express();
+var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost:27017/panda-api');
+
+var Panda = require('./models/panda');
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.use(express.static('public'));
+
+app.post('/panda', function(req, res){
+	var panda = new Panda();
+
+	panda.name = req.body.name;
+	panda.description = req.body.description;
+
+	panda.save(function(err){
+		if (err) res.send(err);
+
+		res.send('Panda created!');
+	});
+});
 
 app.listen(8000);
 
