@@ -12,6 +12,7 @@ app.use(bodyParser.json());
 
 app.use(express.static('public'));
 
+
 app.post('/pandas', function(req, res){
 	var panda = new Panda();
 
@@ -33,6 +34,21 @@ app.get('/pandas', function(req, res){
 		res.json(pandas);
 	});
 });
+
+
+app.put('/pandas/:panda_name', function(req, res){
+	Panda.findOne({name: req.params.panda_name}, function(err, panda){
+		if (err) res.send (err);
+
+		panda.name = req.body.name;
+		panda.save(function(err){
+			if (err) throw err;
+			res.send('Panda updated!');
+		});
+	});
+});
+
+
 
 app.listen(8000);
 
