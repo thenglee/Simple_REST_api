@@ -56,6 +56,14 @@ app.get('/pandas/:panda_name', function(req, res){
 	});
 });
 
+app.delete('/pandas/:panda_name', function(req, res){
+	Panda.remove({name: req.params.panda_name}, function(err, panda){
+		if (err) res.send(err);
+
+		res.send('Panda removed successfully');
+	});
+});
+
 
 
 app.listen(8000);
