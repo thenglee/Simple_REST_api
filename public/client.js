@@ -40,4 +40,20 @@ $(function(){
 		});
 	});
 
+
+	$('.panda-list').on('click', 'a[data-panda]', function(event){
+		if(!confirm('Are you sure?')){
+			return false;
+		}
+
+		var target = $(event.currentTarget);
+
+		$.ajax({
+			type: 'DELETE', url: '/pandas/' + target.data('panda')
+		}).done(function(){
+			target.parents('li').remove();
+		});
+	});
+
 });
+

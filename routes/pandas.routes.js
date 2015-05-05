@@ -69,11 +69,7 @@ router.route('/:panda_name')
 		Panda.remove({name: req.params.panda_name}, function(err, panda){
 			if (err) res.send(err);
 
-			if (!panda.length){
-				return res.send('No panda found!');
-			}
-
-			res.send('Panda removed successfully');
+			res.sendStatus(204);
 		});
 	});
 
