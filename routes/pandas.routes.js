@@ -13,7 +13,7 @@ router.route('/')
 			if (err) res.send(err);
 
 			if (!pandas.length){
-				return res.send('No pandas found!');
+				return res.json(null);
 			}
 
 			res.json(pandas);
@@ -28,7 +28,7 @@ router.route('/')
 		panda.save(function(err){
 			if (err) res.send(err);
 
-			res.send('Panda created!');
+			res.json(panda);
 		});
 	});
 
